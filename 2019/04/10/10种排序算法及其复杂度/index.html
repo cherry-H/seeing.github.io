@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试,算法,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="*1. 冒泡排序及其优化 *2. 选择排序 *3. 插入排序 *4. 快排 *5. 希尔排序 *6. 归并排序 *7. 堆排序 *8. 基数排序 *9. 哈希排序 *10. 桶排序 *11. 排序算法时间空间复杂度对比 冒泡排序及其优化  1234567891011121314151617function bubbleSort(array $array)&amp;#123;    $len = count">
+<meta name="keywords" content="面试,算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP 10种排序算法及其复杂度">
+<meta property="og:url" content="https://seeing.ink/2019/04/10/10种排序算法及其复杂度/index.html">
+<meta property="og:site_name" content="未来可期">
+<meta property="og:description" content="*1. 冒泡排序及其优化 *2. 选择排序 *3. 插入排序 *4. 快排 *5. 希尔排序 *6. 归并排序 *7. 堆排序 *8. 基数排序 *9. 哈希排序 *10. 桶排序 *11. 排序算法时间空间复杂度对比 冒泡排序及其优化  1234567891011121314151617function bubbleSort(array $array)&amp;#123;    $len = count">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-06T06:48:37.275Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP 10种排序算法及其复杂度">
+<meta name="twitter:description" content="*1. 冒泡排序及其优化 *2. 选择排序 *3. 插入排序 *4. 快排 *5. 希尔排序 *6. 归并排序 *7. 堆排序 *8. 基数排序 *9. 哈希排序 *10. 桶排序 *11. 排序算法时间空间复杂度对比 冒泡排序及其优化  1234567891011121314151617function bubbleSort(array $array)&amp;#123;    $len = count">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://seeing.ink/2019/04/10/10种排序算法及其复杂度/">
+
+
+
+
+
+  <title>PHP 10种排序算法及其复杂度 | 未来可期</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?02ef054af08dcf0fd16f8bd9dc7dff1f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">未来可期</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">读更多的书，走更远的路，遇见更多的人</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时间轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-search">
+          <a href="/search/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-search"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://seeing.ink/2019/04/10/10种排序算法及其复杂度/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Seeing Huang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://i1.bvimg.com/683287/3d29ef826db27042.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未来可期">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PHP 10种排序算法及其复杂度</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T18:19:23+08:00">
+                2019-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/10/10种排序算法及其复杂度/" class="leancloud_visitors" data-flag-title="PHP 10种排序算法及其复杂度">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>*<a href="#1">1. 冒泡排序及其优化</a></p>
+<p>*<a href="#2">2. 选择排序</a></p>
+<p>*<a href="#3">3. 插入排序</a></p>
+<p>*<a href="#4">4. 快排</a></p>
+<p>*<a href="#5">5. 希尔排序</a></p>
+<p>*<a href="#6">6. 归并排序</a></p>
+<p>*<a href="#7">7. 堆排序</a></p>
+<p>*<a href="#8">8. 基数排序</a></p>
+<p>*<a href="#9">9. 哈希排序</a></p>
+<p>*<a href="#10">10. 桶排序</a></p>
+<p>*<a href="#11">11. 排序算法时间空间复杂度对比</a></p>
+<h5 id="1">冒泡排序及其优化</h5>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function bubbleSort(array $array)</span><br><span class="line">&#123;</span><br><span class="line">    $len = count($array);</span><br><span class="line">    if ($len &lt;= 1) &#123;</span><br><span class="line">        return $array;</span><br><span class="line">    &#125;</span><br><span class="line">    for ($i = 1; $i &lt; $len; $i++) &#123;</span><br><span class="line">        for ($j = 0; $j &lt; $len - $i; $j++) &#123;</span><br><span class="line">            if ($array[$j] &gt; $array[$j + 1]) &#123;</span><br><span class="line">                $tmp           = $array[$j];</span><br><span class="line">                $array[$j]     = $array[$j + 1];</span><br><span class="line">                $array[$j + 1] = $tmp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return $array;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>   优化一：设置flag</p>
+<pre><code>function bubbleSortOptimization1(array $array)
+{
+    $len = count($array);
+    if ($len &lt;= 1) {
+        return $array;
+    }
+    for ($i = 1; $i &lt; $len; $i++) {
+        $flag = true;// 每次先重置
+        for ($j = 0; $j &lt; $len - $i; $j++) {
+            if ($array[$j] &gt; $array[$j + 1]) {
+                $flag          = false;
+                $tmp           = $array[$j];
+                $array[$j]     = $array[$j + 1];
+                $array[$j + 1] = $tmp;
+            }
+        }
+        if (false) {// 如果上一次扫描没有发生交换，则说明数组已经全部有序，退出循环
+            break;
+        }
+    }
+    return $array;
+}</code></pre><p>   优化二：优化记录数组最后一次交换位置</p>
+<pre><code>function bubbleSortOptimization2(array $array)
+{
+    $len = count($array);
+    if ($len &lt;= 1) {
+        return $array;
+    }
+    $last_pos = $len;
+    $next_pos = $len;
+    for ($i = 0; $i &lt; $len; $i++) {
+        for ($j = 0; $j &lt; $last_pos - 1; $j++) {
+            if ($array[$j] &gt; $array[$j + 1]) {
+                $tmp           = $array[$j];
+                $array[$j]     = $array[$j + 1];
+                $array[$j + 1] = $tmp;
+                $next_pos      = $j + 1;
+            }
+        }
+        if ($last_pos == $next_pos) {
+            break;
+        } else {
+            $last_pos = $next_pos;
+        }
+    }
+    return $array;
+}</code></pre><h5 id="2">选择排序</h5>
+
+<pre><code>function selectSort(array $array)
+{
+    //选择排序选择一个相应的元素，然后将其放到指定的位置
+    //实现思路双重循环完成，外层控制轮数，当前的最小值，内层控制比较次数
+    //$i为当前最小值的位置，需要参与比较的元素
+    $len = count($array);
+    if ($len &lt;= 1) {
+        return $array;
+    }
+    for ($i = 0; $i &lt; $len - 1; $i++) {
+        $p = $i;
+        //先假设最小的值的位置
+        for ($j = $i + 1; $j &lt; $len; $j++) {
+            //$j 当前都需要和哪些元素比较，$i 后边的。
+            if ($array[$p] &gt; $array[$j]) {
+                //$arr[$p] 是 当前已知的最小值
+                $p = $j;
+                //比较，发现更小的,记录下最小值的位置；并且在下次比较时，应该采用已知的最小值进行比较。
+            }
+        }
+        //已经确定了当前的最小值的位置，保存到$p中。
+        //如果发现 最小值的位置与当前假设的位置$i不同，则位置互换即可
+        if ($p != $i) {
+            $tmp       = $array[$p];
+            $array[$p] = $array[$i];
+            $array[$i] = $tmp;
+        }
+    }
+    return $array;
+}</code></pre><h5 id="3">插入排序</h5>
+
+<pre><code>function insertSort(array $array)
+{
+    //插入排序法-算法时间复杂度计算
+    //在最好的情况下（元素已经排好顺序）：那么只需要循环 n-1 次就可以了，时间复杂度 O（n）
+    //在最差的情况下（元素是逆序的）：要循环调整次数： [ n * (n-1) ] / 2 ，时间复杂度为 O（n ^ 2）
+    //平均时间复杂度为：O（n ^ 2）
+    $len = count($array);
+    if ($len &lt;= 1) {
+        return $array;
+    }
+    for ($i = 1; $i &lt; $len; $i++) {
+        //获得当前需要比较的元素值。
+        $tmp = $array[$i];
+        for ($j = $i - 1; $j &gt;= 0; $j--) {
+            //$arr[$i];//需要插入的元素; $arr[$j];//需要比较的元素
+            if ($array[$j] &lt; $tmp) {
+                //如果碰到不需要移动的元素
+                //由于是已经排序好是数组，则前面的就不需要再次比较了。
+                break;
+            } else {
+                //发现插入的元素要小，交换位置
+                //将后边的元素与前面的元素互换
+                $array[$j + 1] = $array[$j];
+                //将前面的数设置为 当前需要交换的数
+                $array[$j] = $tmp;
+            }
+        }
+    }
+    return $array;
+}</code></pre><h5 id="4">快排</h5>
+
+<pre><code>function quickSort(array $array)
+{
+    $len = count($array);
+    if ($len &lt;= 1) {
+        return $array;
+    }
+    $nStandard = $array[0];
+    $leftArr   = [];
+    $rightArr  = [];
+    for ($i = 1; $i &lt; $len; $i++) {//从第2个元素开始遍历
+        if ($array[$i] &gt;= $nStandard) {
+            $rightArr[] = $array[$i];
+        } else {
+            $leftArr[] = $array[$i];
+        }
+    }
+
+    $leftArr   = self::quickSort($leftArr);
+    $leftArr[] = $nStandard;
+    $rightArr  = self::quickSort($rightArr);
+    return array_merge($leftArr, $rightArr);
+}</code></pre><h5 id="5">希尔排序</h5>
+
+<pre><code>function shellSort(array $array)
+{
+    $len = count($array);
+    if ($len &lt;= 1) {
+        return $array;
+    }
+    for ($gep = intval($len / 2); $gep &gt; 0; $gep = intval($gep / 2)) {
+        for ($i = $gep; $i &lt; $len; $i = $i + $gep) {
+            $tmp = $array[$i];
+            for ($j = $i - $gep; $j &gt;= 0; $j = $j - $gep) {
+                if ($tmp &lt; $array[$j]) {
+                    $array[$j + $gep] = $array[$j];
+                    $array[$j]        = $tmp;
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+    return $array;
+}</code></pre><h5 id="6">归并排序</h5>
+
+<pre><code>function merge(array $left, array $right)
+{
+    $i      = 0;
+    $j      = 0;
+    $tmpArr = [];
+    while ($i &lt; count($left) &amp;&amp; $j &lt; count($right)) {
+        if ($left[$i] &lt; $right[$j]) {
+            $tmpArr[] = $left[$i];
+            $i++;
+        } else {
+            $tmpArr[] = $right[$j];
+            $j++;
+        }
+    }
+    $tmpArr = array_merge($tmpArr, array_slice($left, $i));
+    $tmpArr = array_merge($tmpArr, array_slice($right, $j));
+    return $tmpArr;
+}
+
+function mergeSort(array $array)
+{
+    $len = count($array);
+    if ($len &lt;= 1) {
+        return $array;
+    }
+    $mid   = floor($len / 2);
+    $left  = mergeSort(array_slice($array, 0, $mid));
+    $right = mergeSort(array_slice($array, $mid));
+
+    $list = merge($left, $right);
+    return $list;
+}</code></pre><h5 id="7">堆排序</h5>
+
+<pre><code>function swap(&amp;$array, $n, $m)
+{
+    $array[$m] = $array[$n] ^ $array[$m];
+    $array[$n] = $array[$n] ^ $array[$m];
+    $array[$m] = $array[$n] ^ $array[$m];
+}
+
+function adjustHeap(&amp;$array, $node, $len)
+{
+    $lchild = 2 * $node + 1;
+    $rchild = 2 * $node + 2;
+    $max    = $node;
+    while ($lchild &lt; $len || $rchild &lt; $len) {
+        if ($lchild &lt; $len &amp;&amp; $array[$lchild] &gt; $array[$max]) {
+            $max = $lchild;
+        }
+        if ($rchild &lt; $len &amp;&amp; $array[$rchild] &gt; $array[$max]) {
+            $max = $rchild;
+        }
+        if ($max != $node) {
+            swap($array, $max, $node);
+            $node   = $max; //把当前节点切换为最大值的那个节点,迭代使其符合堆特性
+            $lchild = 2 * $node + 1;
+            $rchild = 2 * $node + 2;
+        } else {
+            break; //没有发生交换就退出
+        }
+    }
+}
+
+function buildHeap(array &amp;$array)
+{
+    $len     = count($array);
+    $maxNode = floor($len / 2) - 1;
+    for ($i = $maxNode; $i &gt;= 0; $i--) {
+        adjustHeap($array, $maxNode, $len);
+    }
+}
+
+function heapSort(array &amp;$array)
+{
+    //先建堆
+    buildHeap($array);
+
+    //把第一个节点和最后一个节点交换,直到节点数为1
+    $count = count($array);
+    while ($count &gt; 1) {
+        swap($array, $count - 1, 0); //交换第一个和最后一个元素
+        $count--; //去掉最后一个元素后剩余元素再进行调整
+        adjustHeap($array, 0, $count);
+    }
+}</code></pre><h5 id="8">基数排序</h5>
+
+<pre><code>/**
+ * @param array $array 待排序数组
+ * @param $count 第几次循环标识
+ * 该函数只是完成某一位（个位或十位）上的桶排序
+ */
+function R_sort(array &amp;$array, $count)
+{
+    ////初始化$tempArr数组
+    //桶数组，在强类型语言中，这个数组应该声明为[10][count($arr)]
+    //第一维是 0-9 十个数
+    //第二维这样定义是因为有可能待排序的数组中的所有数的某一位上的只是一样的，这样就全挤在一个桶里面了
+    $tmpArr = [];
+    for ($i = 0; $i &lt; 10; $i++) {
+        $tmpArr[$i] = [];
+    }
+    //求桶的index的除数
+    //如798个位桶index=(798/1)%10=8
+    //十位桶index=(798/10)%10=9
+    //百位桶index=(798/100)%10=7
+    //$tempNum为上式中的1、10、100
+    //$tempNum = (int)pow(10, $loop - 1);
+
+    $num = (int)pow(10, $count - 1);
+
+    for ($i = 0; $i &lt; count($array); $i++) {
+        //求出某位上的数字
+        $bucketNum = ($array[$i] / $num) % 10;
+        for ($j = 0; $j &lt; count($array); $j++) {
+            if (!isset($tmpArr[$bucketNum][$j])) {
+                $tmpArr[$bucketNum][$j] = $array[$i];//入桶
+                break;
+            }
+        }
+    }
+
+    //还原回原数组中
+    $k = 0;
+    for ($i = 0; $i &lt; 10; $i++) {
+        for ($j = 0; $j &lt; count($array); $j++) {
+            if (!empty($tmpArr[$i][$j])) {
+                $array[$k++]    = $tmpArr[$i][$j];//出桶
+                $tmpArr[$i][$j] = null;//避免下次循环的时候污染数据
+            }
+        }
+    }
+}
+
+function radixSort(array &amp;$array)
+{
+    //获得最大值
+    $max = max($array);
+    //获得最大值的最大位数
+    $count = 1;
+    $loop  = floor($max / 10);
+    while ($loop != 0) {
+        $count++;
+        $loop = floor($loop / 10);
+    }
+
+    for ($i = 1; $i &lt;= $count; $i++) {
+        R_sort($array, $i);
+    }
+}</code></pre><h5 id="9">哈希排序</h5>
+
+<p>待补充</p>
+<h5 id="10">桶排序</h5>
+
+<p>待补充</p>
+<h5 id="11">排序算法时间空间复杂度对比</h5>
+
+<p>待补充</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/10/PHP面试强弱语言转化/" rel="next" title="PHP面试题">
+                <i class="fa fa-chevron-left"></i> PHP面试题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/11/面试手写代码题/" rel="prev" title="面试手写代码题">
+                面试手写代码题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://i1.bvimg.com/683287/3d29ef826db27042.jpg" alt="Seeing Huang">
+            
+              <p class="site-author-name" itemprop="name">Seeing Huang</p>
+              <p class="site-description motion-element" itemprop="description">小脾气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.mantis.vip/" title="Mantis" target="_blank">Mantis</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+<br>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=255201&auto=1&height=66"></iframe>
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1"><span class="nav-number">1.</span> <span class="nav-text">冒泡排序及其优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2"><span class="nav-number">2.</span> <span class="nav-text">选择排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3"><span class="nav-number">3.</span> <span class="nav-text">插入排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4"><span class="nav-number">4.</span> <span class="nav-text">快排</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5"><span class="nav-number">5.</span> <span class="nav-text">希尔排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6"><span class="nav-number">6.</span> <span class="nav-text">归并排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7"><span class="nav-number">7.</span> <span class="nav-text">堆排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8"><span class="nav-number">8.</span> <span class="nav-text">基数排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9"><span class="nav-number">9.</span> <span class="nav-text">哈希排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10"><span class="nav-number">10.</span> <span class="nav-text">桶排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11"><span class="nav-number">11.</span> <span class="nav-text">排序算法时间空间复杂度对比</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Seeing Huang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("mzdywl2twosBWz9AdWfIeOs1-gzGzoHsz", "LSDBm7RRyfFaAXW95s4q50Hc");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
